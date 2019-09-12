@@ -6,6 +6,7 @@ winsign
         :target: https://pypi.python.org/pypi/winsign
 
 Utilities to support code signing Windows executable files.
+=======
 
 * Works on Python 3.6 and up.
 * Free software: MPL2
