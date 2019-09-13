@@ -289,6 +289,28 @@ def write_signature(infile, outfile, sig):
         osslsigncode(cmd)
 
 
+def key_signer(priv_key):
+    """Create a signer function that signs with a private key.
+
+    Args:
+        priv_key (key object): A
+            `cryptography.hazmat.primitives.asymmetric.rsa.RSAPrivateKey` instance
+
+    Returns:
+        A signer function with signature
+        `signer(digest: bytes, digest_algo: str) -> bytes`
+
+    """
+    def signer(digest, digest_algo):
+        log.debug(
+            "signing %s with %s",
+            hexlify(digest),
+            priv_key.public_key().public_numbers(),
+        )
+        return sign_signer_digest(priv_key, digest_algo, digest)
+    return signer
+
+
 def sign_file(
     infile,
     outfile,
@@ -451,13 +473,7 @@ def main(argv=None):
     certs = load_pem_certs(certs_data)
     priv_key = load_private_key(open(args.priv_key, "rb").read())
 
-    def signer(digest, digest_algo):
-        log.debug(
-            "signing %s with %s",
-            hexlify(digest),
-            priv_key.public_key().public_numbers(),
-        )
-        return sign_signer_digest(priv_key, digest_algo, digest)
+    signer = key_signer(priv_key)
 
     with tempfile.TemporaryDirectory() as d:
         d = Path(d)
