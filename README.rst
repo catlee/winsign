@@ -49,6 +49,12 @@ CLI Usage
      -v, --verbose
      -q, --quiet
 
+Future plans
+============
+* Stop using osslsigncode for PE signatures
+* Refactor code so that osslsigncode functionality is in its own module
+* Add python support for MSI, then we can drop dependency on osslsigncode
+
 Credits
 =======
 

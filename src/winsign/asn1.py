@@ -1,3 +1,4 @@
+"""ASN.1 structures and methods specific for windows signing."""
 import hashlib
 import logging
 from binascii import hexlify
