@@ -29,6 +29,7 @@ from winsign.pefile import calc_authenticode_digest, calc_checksum, pefile
 
 class VerifyStatus:
     """Object to represent signature verification status."""
+
     def __init__(self):
         """Create a new VerifyStatus object."""
         self.result = True
@@ -327,11 +328,13 @@ def verify_pefile_old_timestamp(f, pe):
                         "sha1", info["encryptedDigest"].asOctets()
                     ).digest()
                     counter_sig = der_decode(a["values"][0], SignerInfo())[0]
+                    counter_sig_digest = der_decode(
+                        get_attribute(
+                            counter_sig["authenticatedAttributes"], id_messageDigest
+                        )[0]
+                    )[0].asOctets()
                     # Check that the counter signature is of the right data
-                    if (
-                        get_message_digest(counter_sig["authenticatedAttributes"])
-                        != signature_digest
-                    ):
+                    if counter_sig_digest != signature_digest:
                         passed = False
                         messages.append(
                             f"counter signature is over the wrong data (hash: {hexlify(signature_digest)})"
@@ -370,11 +373,3 @@ def verify_pefile(f):
     retval.add_result("timestamp", *verify_pefile_old_timestamp(f, pe))
 
     return retval
-
-
-def get_message_digest(attrs):
-    """Fetches the message digest from a set of attributes."""
-    # TODO: Use get_attribute?
-    for a in attrs:
-        if a["type"] == id_messageDigest:
-            return der_decode(a["values"][0])[0].asOctets()
