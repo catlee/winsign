@@ -18,11 +18,13 @@ from winsign.asn1 import ASN_DIGEST_ALGO_MAP, id_counterSignature, id_timestampS
 
 class TSAPolicyId(univ.ObjectIdentifier):
     """TSA Policy Id."""
+
     pass
 
 
 class TimeStampReq(univ.Sequence):
     """RFC3161 Timestamp Request."""
+
     componentType = namedtype.NamedTypes(
         namedtype.NamedType("version", univ.Integer(1)),
         namedtype.NamedType("messageImprint", DigestInfo()),
@@ -40,6 +42,7 @@ class TimeStampReq(univ.Sequence):
 
 class TimeStampResp(univ.Sequence):
     """RFC3161 Timestamp Response."""
+
     componentType = namedtype.NamedTypes(
         namedtype.NamedType("status", PKIStatusInfo()),
         namedtype.OptionalNamedType("timeStampToken", univ.Any()),
@@ -49,6 +52,7 @@ class TimeStampResp(univ.Sequence):
 # For old style timestamps
 class OldTimeStampReqBlob(univ.Sequence):
     """Old style Timestamp request blob."""
+
     componentType = namedtype.NamedTypes(
         namedtype.NamedType("type", univ.ObjectIdentifier()),
         namedtype.OptionalNamedType(
@@ -62,6 +66,7 @@ class OldTimeStampReqBlob(univ.Sequence):
 
 class OldTimeStampReq(univ.Sequence):
     """Old style Timestamp request."""
+
     componentType = namedtype.NamedTypes(
         namedtype.NamedType("type", univ.ObjectIdentifier()),
         namedtype.NamedType("blob", OldTimeStampReqBlob()),

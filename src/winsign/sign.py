@@ -301,6 +301,8 @@ def key_signer(priv_key):
         `signer(digest: bytes, digest_algo: str) -> bytes`
 
     """
+    # noqa:D202
+
     def signer(digest, digest_algo):
         log.debug(
             "signing %s with %s",
@@ -308,6 +310,7 @@ def key_signer(priv_key):
             priv_key.public_key().public_numbers(),
         )
         return sign_signer_digest(priv_key, digest_algo, digest)
+
     return signer
 
 

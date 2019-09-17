@@ -2,11 +2,15 @@
 winsign documentation
 =====================
 
+.. include:: ../README.rst
+
+.. include:: how.rst
+
+API Documentation
+=================
 .. toctree::
    :maxdepth: 2
 
-   readme
-   how
    winsign
 
 Indices and tables

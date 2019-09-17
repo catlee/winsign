@@ -45,6 +45,7 @@ ASN_DIGEST_ALGO_MAP = {"sha1": algo_sha1, "sha256": algo_sha256}
 
 class SpcString(univ.Choice):
     """SPC String class represetning unicode or ascii strings."""
+
     componentType = namedtype.NamedTypes(
         namedtype.NamedType(
             "unicode",
@@ -63,6 +64,7 @@ class SpcString(univ.Choice):
 
 class SpcLink(univ.Choice):
     """SPC Link class for holding references to URLs or files."""
+
     componentType = namedtype.NamedTypes(
         namedtype.NamedType(
             "url",
@@ -87,6 +89,7 @@ class SpcLink(univ.Choice):
 
 class SpcSpOpusInfo(univ.Sequence):
     """SPC Information class for holding additional information about a signature."""
+
     componentType = namedtype.NamedTypes(
         namedtype.OptionalNamedType(
             "programName",
@@ -105,6 +108,7 @@ class SpcSpOpusInfo(univ.Sequence):
 
 class SpcPeImageFlags(univ.BitString):
     """SPC PE Image Flags."""
+
     namedValues = namedval.NamedValues(
         ("includeResources", 0),
         ("includeDebugInfo", 1),
@@ -114,6 +118,7 @@ class SpcPeImageFlags(univ.BitString):
 
 class SpcPeImageData(univ.Sequence):
     """SPC PE Image Data."""
+
     componentType = namedtype.NamedTypes(
         namedtype.NamedType("flags", SpcPeImageFlags()),
         namedtype.OptionalNamedType(
@@ -127,6 +132,7 @@ class SpcPeImageData(univ.Sequence):
 
 class SpcAttributeTypeAndOptionalValue(univ.Sequence):
     """SPC type/value attributes."""
+
     componentType = namedtype.NamedTypes(
         namedtype.NamedType("type", univ.ObjectIdentifier()),
         namedtype.NamedType("value", SpcPeImageData()),
@@ -135,6 +141,7 @@ class SpcAttributeTypeAndOptionalValue(univ.Sequence):
 
 class SpcIndirectDataContent(univ.Sequence):
     """SPC Indirect Data Content."""
+
     componentType = namedtype.NamedTypes(
         namedtype.NamedType("data", SpcAttributeTypeAndOptionalValue()),
         namedtype.NamedType("messageDigest", DigestInfo()),
