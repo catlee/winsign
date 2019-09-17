@@ -1,7 +1,3 @@
-=====================
-winsign documentation
-=====================
-
 .. include:: ../README.rst
 
 .. include:: how.rst
